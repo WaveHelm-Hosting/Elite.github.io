@@ -1,0 +1,456 @@
+import { useState, useEffect } from 'react';
+import {
+  Briefcase,
+  Search,
+  Users,
+  MessageCircle,
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Facebook,
+  Twitter,
+  Menu,
+  X,
+  ArrowRight,
+  ClipboardList,
+  CheckCircle,
+} from 'lucide-react';
+
+// --- Page Components ---
+
+const HomePage = ({ setCurrentPage }) => (
+  <>
+    {/* Hero Section */}
+    <section id="home" className="relative bg-gradient-to-r from-blue-800 to-blue-900 text-white pt-32 pb-24 md:pt-48 md:pb-32 lg:pt-64 lg:pb-48 text-center flex items-center justify-center">
+      <div className="container mx-auto px-4 z-10">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-4 animate-fade-in-down">
+          Your Partner in Staffing Solutions
+        </h1>
+        <p className="text-xl md:text-2xl font-light mb-8 animate-fade-in-up">
+          Connecting exceptional talent with leading companies.
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in">
+          <button onClick={() => setCurrentPage('job-seekers')} className="bg-white text-blue-800 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+            Find a Job
+          </button>
+          <button onClick={() => setCurrentPage('employers')} className="bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition-all duration-300 transform hover:scale-105">
+            Hire Talent
+          </button>
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-repeat bg-center opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/symphony.png')" }}></div>
+    </section>
+
+    {/* Services Section */}
+    <section className="py-20 md:py-32 bg-gray-50">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+          Solutions for <span className="text-red-600">Everyone</span>
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
+          Whether you're a candidate looking for a new role or a company seeking your next great employee, we've got you covered.
+        </p>
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div onClick={() => setCurrentPage('job-seekers')} className="bg-white p-8 md:p-12 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 cursor-pointer">
+            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Search className="w-10 h-10 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Find Your Next Opportunity</h3>
+            <p className="text-gray-600 mb-6">Access a wide range of jobs from top employers. We connect you with positions that match your skills and career goals.</p>
+            <button className="inline-flex items-center text-red-600 font-semibold group">
+              View Open Jobs
+              <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </div>
+          <div onClick={() => setCurrentPage('employers')} className="bg-white p-8 md:p-12 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 cursor-pointer">
+            <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Users className="w-10 h-10 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Recruit Top Talent</h3>
+            <p className="text-gray-600 mb-6">Find qualified candidates quickly and efficiently. Our rigorous screening process ensures you get the best hires for your team.</p>
+            <button className="inline-flex items-center text-red-600 font-semibold group">
+              Request a Consult
+              <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Testimonials Section */}
+    <section className="py-20 md:py-32 bg-gray-50">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+          What Our Clients and Candidates Say
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
+          Our success is built on the success of those we serve.
+        </p>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              name: 'Sarah J.',
+              role: 'Marketing Manager',
+              quote: "Elite Staffing helped me find my dream job in a matter of weeks. The team was incredibly supportive and professional throughout the entire process.",
+            },
+            {
+              name: 'David L.',
+              role: 'HR Director',
+              quote: "We've partnered with Elite Staffing for years. Their ability to consistently provide high-quality candidates has been invaluable to our company's growth.",
+            },
+            {
+              name: 'Emily R.',
+              role: 'Data Analyst',
+              quote: "I highly recommend Elite Staffing to any job seeker. They truly listened to what I was looking for and presented me with opportunities I wouldn't have found otherwise.",
+            },
+          ].map((testimonial, index) => (
+            <div key={index} className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center">
+              <MessageCircle className="w-12 h-12 text-red-600 mb-4" />
+              <p className="text-gray-700 italic mb-4">"{testimonial.quote}"</p>
+              <div className="font-bold text-gray-900">{testimonial.name}</div>
+              <div className="text-sm text-gray-500">{testimonial.role}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </>
+);
+
+const AboutPage = () => (
+  <section className="py-32 md:py-48 bg-white">
+    <div className="container mx-auto px-4">
+      <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 text-center mb-4">
+        About <span className="text-red-600">Elite Staffing Inc.</span>
+      </h2>
+      <p className="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
+        We are a leading staffing agency committed to excellence and personalized service. Our mission is to build lasting relationships that power both careers and businesses.
+      </p>
+      <div className="flex flex-col lg:flex-row items-center gap-12">
+        <div className="lg:w-1/2">
+          <img src="https://placehold.co/700x500/A0C4FF/001D4F?text=Our+Team" alt="Our team working together" className="rounded-3xl shadow-xl w-full h-auto" />
+        </div>
+        <div className="lg:w-1/2">
+          <p className="text-lg text-gray-600 mb-6">
+            Elite Staffing Inc. is dedicated to fostering strong relationships between talented professionals and forward-thinking companies. With over 20 years of experience, we pride ourselves on our deep industry knowledge and personalized approach to staffing.
+          </p>
+          <p className="text-lg text-gray-600 mb-6">
+            Our mission is to understand the unique needs of both our clients and candidates, ensuring a perfect match that drives success and growth for all parties involved. We believe in quality over quantity, building a reputation for excellence one placement at a time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const JobSeekersPage = () => (
+  <section className="py-32 md:py-48 bg-gray-50">
+    <div className="container mx-auto px-4">
+      <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 text-center mb-4">
+        For <span className="text-red-600">Job Seekers</span>
+      </h2>
+      <p className="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
+        We partner with you to find a job that’s not just a paycheck, but a stepping stone to a fulfilling career.
+      </p>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {[
+          { icon: <ClipboardList />, title: 'Resume & Interview Prep', description: 'Our experts help you craft a standout resume and prepare for interviews to land the job.' },
+          { icon: <Search />, title: 'Access to Exclusive Jobs', description: 'Get access to unlisted jobs from top companies in your industry. We have the connections you need.' },
+          { icon: <CheckCircle />, title: 'Ongoing Career Support', description: 'We provide continuous support and guidance throughout your career journey, not just for one job.' },
+        ].map((item, index) => (
+          <div key={index} className="bg-white p-8 rounded-2xl shadow-xl text-center">
+            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              {<item.icon className="w-8 h-8 text-white" />}
+            </div>
+            <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+            <p className="text-gray-600">{item.description}</p>
+          </div>
+        ))}
+      </div>
+      <div className="text-center mt-12">
+        <button className="bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300">
+          Search All Openings
+        </button>
+      </div>
+    </div>
+  </section>
+);
+
+const EmployersPage = () => (
+  <section className="py-32 md:py-48 bg-white">
+    <div className="container mx-auto px-4">
+      <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 text-center mb-4">
+        For <span className="text-red-600">Employers</span>
+      </h2>
+      <p className="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
+        We find the talent that fits your company's culture and accelerates your business goals.
+      </p>
+      <div className="flex flex-col lg:flex-row gap-12 items-center mb-12">
+        <div className="lg:w-1/2">
+          <img src="https://placehold.co/700x500/A0C4FF/001D4F?text=Recruiting+Talent" alt="Recruiting Talent" className="rounded-3xl shadow-xl w-full h-auto" />
+        </div>
+        <div className="lg:w-1/2">
+          <h3 className="text-2xl font-bold mb-4">Our Rigorous Vetting Process</h3>
+          <p className="text-gray-600 mb-4">
+            We don't just send resumes; we send solutions. Our comprehensive screening process includes in-depth interviews, skills assessments, and reference checks to ensure every candidate meets your standards.
+          </p>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-center"><CheckCircle className="w-5 h-5 text-red-600 mr-2" /> Customized Staffing Plans</li>
+            <li className="flex items-center"><CheckCircle className="w-5 h-5 text-red-600 mr-2" /> Direct-Hire & Temp-to-Hire Options</li>
+            <li className="flex items-center"><CheckCircle className="w-5 h-5 text-red-600 mr-2" /> Dedicated Account Manager</li>
+          </ul>
+        </div>
+      </div>
+      <div className="text-center mt-12">
+        <button className="bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300">
+          Request a Consultation
+        </button>
+      </div>
+    </div>
+  </section>
+);
+
+const ContactPage = ({ showMessageModal }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form data submitted:', formData);
+    // Simulate a successful form submission
+    showMessageModal('Thank you for your message! We will get back to you shortly.');
+    // Clear the form fields
+    setFormData({
+      name: '',
+      email: '',
+      message: '',
+    });
+  };
+
+  return (
+    <section className="py-32 md:py-48 bg-white">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 text-center mb-4">
+          Get In <span className="text-red-600">Touch</span>
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto text-center mb-12">
+          Ready to take the next step in your career or staffing needs? Contact us today.
+        </p>
+        <div className="flex flex-col lg:flex-row-reverse gap-12">
+          <div className="lg:w-1/2 p-8 bg-gray-100 rounded-3xl shadow-xl flex flex-col justify-center space-y-8">
+            <div className="flex items-start">
+              <MapPin className="w-6 h-6 text-red-600 flex-shrink-0 mt-1 mr-4" />
+              <div>
+                <h4 className="text-lg font-bold text-gray-900">Address</h4>
+                <p className="text-gray-600">123 Staffing Lane, Suite 400<br/>Business City, State 12345</p>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <Phone className="w-6 h-6 text-red-600 flex-shrink-0 mt-1 mr-4" />
+              <div>
+                <h4 className="text-lg font-bold text-gray-900">Phone</h4>
+                <p className="text-gray-600">(123) 456-7890</p>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <Mail className="w-6 h-6 text-red-600 flex-shrink-0 mt-1 mr-4" />
+              <div>
+                <h4 className="text-lg font-bold text-gray-900">Email</h4>
+                <p className="text-gray-600">info@elitestaffinginc.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:w-1/2 p-8 bg-gray-100 rounded-3xl shadow-xl">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 transition-all duration-200" required />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 transition-all duration-200" required />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+                <textarea id="message" name="message" rows="4" value={formData.message} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 transition-all duration-200" required></textarea>
+              </div>
+              <div>
+                <button type="submit" className="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-full shadow-md hover:bg-red-700 transition-colors duration-300">
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Modal = ({ message, onClose }) => (
+  <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-[100] flex items-center justify-center">
+    <div className="relative p-8 bg-white rounded-lg shadow-xl max-w-sm mx-auto">
+      <div className="text-center">
+        <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+          <CheckCircle className="h-6 w-6 text-green-600" />
+        </div>
+        <h3 className="mt-4 text-lg leading-6 font-medium text-gray-900">Success!</h3>
+        <div className="mt-2">
+          <p className="text-sm text-gray-500">
+            {message}
+          </p>
+        </div>
+      </div>
+      <div className="mt-5 sm:mt-6">
+        <button
+          onClick={onClose}
+          type="button"
+          className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
+// --- Main App Component ---
+export default function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+  
+  // Scrolls to the top of the page whenever the page changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [currentPage]);
+
+  const showMessageModal = (message) => {
+    setModalMessage(message);
+  };
+
+  const closeModal = () => {
+    setModalMessage('');
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <HomePage setCurrentPage={setCurrentPage} />;
+      case 'about':
+        return <AboutPage />;
+      case 'job-seekers':
+        return <JobSeekersPage />;
+      case 'employers':
+        return <EmployersPage />;
+      case 'contact':
+        return <ContactPage showMessageModal={showMessageModal} />;
+      default:
+        return <HomePage setCurrentPage={setCurrentPage} />;
+    }
+  };
+
+  return (
+    <div className="bg-gray-50 font-sans antialiased text-gray-800">
+      {/* Navigation */}
+      <nav className="fixed w-full z-50 bg-white shadow-lg">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <div className="flex items-center">
+            <Briefcase className="text-blue-800 w-8 h-8 mr-2" />
+            <span className="text-2xl font-bold text-gray-900">Elite Staffing Inc.</span>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8 items-center">
+            <button onClick={() => setCurrentPage('home')} className="text-gray-600 hover:text-red-600 transition duration-300 font-medium">Home</button>
+            <button onClick={() => setCurrentPage('about')} className="text-gray-600 hover:text-red-600 transition duration-300 font-medium">About Us</button>
+            <button onClick={() => setCurrentPage('job-seekers')} className="text-gray-600 hover:text-red-600 transition duration-300 font-medium">Job Seekers</button>
+            <button onClick={() => setCurrentPage('employers')} className="text-gray-600 hover:text-red-600 transition duration-300 font-medium">Employers</button>
+            <button onClick={() => setCurrentPage('contact')} className="text-gray-600 hover:text-red-600 transition duration-300 font-medium">Contact</button>
+            <button className="bg-red-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-red-700 transition-colors duration-300 shadow-md" onClick={() => setCurrentPage('contact')}>
+              Get Started
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button onClick={toggleMenu} className="text-gray-800 focus:outline-none">
+              {isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white shadow-xl py-4 transition-all duration-300 ease-in-out">
+            <div className="flex flex-col items-center space-y-4">
+              <button onClick={() => { setCurrentPage('home'); closeMenu(); }} className="text-lg text-gray-700 hover:text-red-600 transition-colors duration-300 font-medium">Home</button>
+              <button onClick={() => { setCurrentPage('about'); closeMenu(); }} className="text-lg text-gray-700 hover:text-red-600 transition-colors duration-300 font-medium">About Us</button>
+              <button onClick={() => { setCurrentPage('job-seekers'); closeMenu(); }} className="text-lg text-gray-700 hover:text-red-600 transition-colors duration-300 font-medium">Job Seekers</button>
+              <button onClick={() => { setCurrentPage('employers'); closeMenu(); }} className="text-lg text-gray-700 hover:text-red-600 transition-colors duration-300 font-medium">Employers</button>
+              <button onClick={() => { setCurrentPage('contact'); closeMenu(); }} className="text-lg text-gray-700 hover:text-red-600 transition-colors duration-300 font-medium">Contact</button>
+              <button onClick={() => { setCurrentPage('contact'); closeMenu(); }} className="bg-red-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-red-700 transition-colors duration-300 shadow-md">
+                Get Started
+              </button>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      <main>
+        {renderPage()}
+      </main>
+
+      {/* Confirmation Modal */}
+      {modalMessage && <Modal message={modalMessage} onClose={closeModal} />}
+
+      {/* Footer */}
+      <footer className="bg-blue-900 text-white py-12">
+        <div className="container mx-auto px-4 flex flex-col items-center text-center space-y-8">
+          <div className="flex items-center space-x-2">
+            <Briefcase className="text-white w-6 h-6" />
+            <span className="text-xl font-bold">Elite Staffing Inc.</span>
+          </div>
+          <div className="flex space-x-6">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-500 transition-colors duration-300">
+              <Linkedin className="w-6 h-6" />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-500 transition-colors duration-300">
+              <Facebook className="w-6 h-6" />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-500 transition-colors duration-300">
+              <Twitter className="w-6 h-6" />
+            </a>
+          </div>
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 text-gray-400">
+            <button onClick={() => setCurrentPage('home')} className="hover:text-white transition-colors duration-300">Home</button>
+            <button onClick={() => setCurrentPage('about')} className="hover:text-white transition-colors duration-300">About Us</button>
+            <button onClick={() => setCurrentPage('contact')} className="hover:text-white transition-colors duration-300">Contact</button>
+            <a href="#" className="hover:text-white transition-colors duration-300">Privacy Policy</a>
+          </div>
+          <p className="text-gray-500 text-sm mt-8">&copy; 2025 Elite Staffing Inc. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
